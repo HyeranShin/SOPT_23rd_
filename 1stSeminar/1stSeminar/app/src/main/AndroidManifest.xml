@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hyeran.android.a1stseminar">
-    <!-- 패키지명(추후 고유한 앱 id 생성에 영향) -->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,14 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--
-            icon: 앱 아이콘 이미지 설정
-            label: 앱 이름 설정
-            round Icon: 둥근 앱 아이콘 이미지 설정
-            theme: 앱 전역에서 공통적으로 적용할 테마
-        -->
         <activity android:name=".MainActivity">
-            <!-- App을 키면 가장 먼저 띄워지도록 하는 역할 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
