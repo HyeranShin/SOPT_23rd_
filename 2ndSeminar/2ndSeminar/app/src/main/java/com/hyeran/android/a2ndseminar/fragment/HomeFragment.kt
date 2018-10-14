@@ -9,6 +9,20 @@ import com.hyeran.android.a2ndseminar.R
 
 class HomeFragment : Fragment() {
 
+    // 싱글톤
+    // 자바로치면 static
+    companion object {
+        var mInstance : HomeFragment? = null
+
+        @Synchronized
+        fun getInstance() : HomeFragment {
+            if (mInstance == null) {
+                mInstance = HomeFragment()
+            }
+            return mInstance!!
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view : View = inflater.inflate(R.layout.fragment_home, container, false)
 

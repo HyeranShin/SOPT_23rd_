@@ -27,7 +27,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        addFragment(HomeFragment())
+        // 데이터 객체를 매번 만들면 메모리 낭비이므로 싱글톤 이용
+
+        addFragment(HomeFragment.getInstance())
 
         btn_main_act_home_frag.setOnClickListener {
             replaceFragment(HomeFragment())
