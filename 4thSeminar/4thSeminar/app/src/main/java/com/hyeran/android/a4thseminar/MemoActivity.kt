@@ -55,6 +55,7 @@ class MemoActivity : AppCompatActivity() {
     private fun setOnBtnClickListener() {
         btn_memo_act_logout.setOnClickListener {
             // 로그인된 정보 데이터 제거하고 다시 로그인하도록
+            toast("ID: "+SharedPreferenceController.getUserID(this)+"\nPW: "+SharedPreferenceController.getUserPW(this)+"\n로그아웃")
             SharedPreferenceController.clearUserSharedPreferences(this)
             startActivity<LoginActivity>()
             finish()
