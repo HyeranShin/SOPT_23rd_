@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MyPageActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:background="@drawable/bg">
+
+        <ImageButton
+            android:layout_width="18dp"
+            android:layout_height="18.7dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="18.7dp"
+                android:layout_height="18.7dp"
+                android:layout_marginRight="7.3dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_notice" />
+
+            <ImageButton
+                android:layout_width="18.7dp"
+                android:layout_height="18.7dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_setting" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/nanumsquare_eb"
+            android:gravity="center_horizontal"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="2sp"
+            android:textColor="#ffffff"
+            android:textSize="16.7sp"
+            tools:text="jieun5564" />
+
+        <ImageView
+            android:layout_width="41.3dp"
+            android:layout_height="11.3dp"
+            android:layout_marginLeft="13.3dp"
+            android:layout_marginTop="85dp"
+            android:src="@drawable/grade_dieter" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="110dp"
+            android:fontFamily="@font/nanumsquare_b"
+            android:gravity="center_horizontal"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="2sp"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            tools:text="&apos; 야식은 이제 그만~! &apos;" />
+
+        <ImageView
+            android:layout_width="66.7dp"
+            android:layout_height="66.7dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="55dp"
+            android:src="@drawable/pic" />
+
+        <ImageButton
+            android:layout_width="13.3dp"
+            android:layout_height="13.3dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="100dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_pic_camera" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f0f0f0"></RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_toLeftOf="@+id/tv_scrap_mypage"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="1.5dp"
+                android:src="@drawable/ic_scrap"/>
+            <TextView
+                android:id="@+id/tv_scrap_mypage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="스크랩"
+                android:fontFamily="@font/nanumsquare_r"
+                android:textSize="10sp"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="0.7sp"
+                android:gravity="center_horizontal"
+                android:textColor="#353535"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="#fe5858"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="0.7sp"
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@id/tv_scrap_mypage"
+                android:layout_centerVertical="true"
+                tools:text="12개"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="10dp"
+            ></RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_toLeftOf="@+id/tv_like_mypage"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="1.5dp"
+                android:src="@drawable/ic_like"/>
+            <TextView
+                android:id="@+id/tv_like_mypage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="좋아요"
+                android:fontFamily="@font/nanumsquare_r"
+                android:textSize="10sp"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="0.7sp"
+                android:gravity="center_horizontal"
+                android:textColor="#353535"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="#fe5858"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="0.7sp"
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@id/tv_like_mypage"
+                android:layout_centerVertical="true"
+                tools:text="18개"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:background="#b9b9b9"></RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f0f0f0"></RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/nanumsquare_b"
+                android:textSize="12sp"
+                android:textColor="#d6d6d6"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="1.3sp"
+                android:gravity="center"
+                tools:text="내 게시물"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/nanumsquare_b"
+                android:textSize="12sp"
+                android:textColor="#fe5858"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="1.3sp"
+                android:gravity="center"
+                tools:text="내 댓글"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/nanumsquare_b"
+                android:textSize="12sp"
+                android:textColor="#d6d6d6"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="1.3sp"
+                android:gravity="center"
+                tools:text="그룹방"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="8.7dp"
+            android:layout_marginBottom="12dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_question_board"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/nanumsquare_b"
+                    android:textColor="#232323"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="0.7sp"
+                    android:gravity="center_horizontal"
+                    tools:text="질문 게시판"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="8sp"
+                    android:fontFamily="@font/nanumsquare_r"
+                    android:layout_marginTop="3.5dp"
+                    android:textColor="#232323"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="0.7sp"
+                    android:gravity="center_horizontal"
+                    tools:text="정말 좋은 꿀팁이네용! ^~^"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="6.7sp"
+                    android:textColor="#7a7a7a"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="1.3sp"
+                    android:gravity="center_horizontal"
+                    android:fontFamily="@font/nanumsquare_r"
+                    tools:text="11/11 16:51"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="8.7dp"
+            android:layout_marginBottom="12dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_proud_board"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/nanumsquare_b"
+                    android:textColor="#232323"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="0.7sp"
+                    android:gravity="center_horizontal"
+                    tools:text="자랑 게시판"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="8sp"
+                    android:fontFamily="@font/nanumsquare_r"
+                    android:layout_marginTop="3.5dp"
+                    android:textColor="#232323"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="0.7sp"
+                    android:gravity="center_horizontal"
+                    tools:text="저녁은 어떤 식으로 구성하셨나요? 초보라 너무 어렵네요"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="6.7sp"
+                    android:textColor="#7a7a7a"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="1.3sp"
+                    android:gravity="center_horizontal"
+                    android:fontFamily="@font/nanumsquare_r"
+                    tools:text="11/10 18:58"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="8.7dp"
+            android:layout_marginBottom="12dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_bulletin_board"
+                android:layout_gravity="center_vertical"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/nanumsquare_b"
+                    android:textColor="#232323"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="0.7sp"
+                    android:gravity="center_horizontal"
+                    tools:text="자유 게시판"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="8sp"
+                    android:fontFamily="@font/nanumsquare_r"
+                    android:layout_marginTop="3.5dp"
+                    android:textColor="#232323"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="0.7sp"
+                    tools:text="운동은 아침에 하시나요? 저녁에 하시나요? ㅠㅠㅠㅠㅠ\n운동 시간 내기 어렵네요"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="6.7sp"
+                    android:textColor="#7a7a7a"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="1.3sp"
+                    android:gravity="center_horizontal"
+                    android:fontFamily="@font/nanumsquare_r"
+                    tools:text="11/09 14:31"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
