@@ -10,6 +10,7 @@ import com.hyeran.android.a6thseminar.db.SharedPreferencesController
 import com.hyeran.android.a6thseminar.network.ApplicationController
 import com.hyeran.android.a6thseminar.network.NetworkService
 import com.hyeran.android.a6thseminar.post.PostLogInResponse
+import kotlinx.android.synthetic.main.activity_board.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -58,16 +59,21 @@ class MainActivity : AppCompatActivity() {
             val postLogInResponse = networkService.postLogInResponse("application/json", gsonObejct)
             postLogInResponse.enqueue(object: Callback<PostLogInResponse>{
                 override fun onFailure(call: Call<PostLogInResponse>?, t: Throwable?) {
-                    Log.e("Login fail", t.toString())
+                    Log.e("<로그인> 통신 fail", t.toString())
                 }
 
                 override fun onResponse(call: Call<PostLogInResponse>?, response: Response<PostLogInResponse>) {
                     if (response.isSuccessful) {
+                        toast(response.body()!!.message)
+
                         val token = response.body()!!.data.token
                         // SharedPreferences에 토큰 저장
                         SharedPreferencesController.setAuthorization(this@MainActivity, token)
                         toast(SharedPreferencesController.getAuthorization(this@MainActivity))
                         startActivity<BoardActivity>()
+                    } else {
+                        Log.e("<로그인> 응답 Fail: ", response.code().toString())
+                        Log.e("<로그인> 응답 Fail: ", response.errorBody().toString())
                     }
                 }
             })

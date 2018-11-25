@@ -7,13 +7,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.hyeran.android.a6thseminar.BoardActivity
 import com.hyeran.android.a6thseminar.R
 import com.hyeran.android.a6thseminar.data.BoardData
 import com.hyeran.android.a6thseminar.db.SharedPreferencesController
+import com.hyeran.android.a6thseminar.delete.DeleteBulletinResponse
 import com.hyeran.android.a6thseminar.network.ApplicationController
 import com.hyeran.android.a6thseminar.network.NetworkService
 import com.hyeran.android.a6thseminar.post.PostLikeResponse
@@ -57,58 +60,55 @@ class BoardRecyclerViewAdapter(val ctx: Context, val dataList: ArrayList<BoardDa
                 .into(holder.image)
 
         holder.like.setOnClickListener {
-            if (dataList[position].like) {
-                val postLikeResponse = networkService.postLikeResponse("application/json", SharedPreferencesController.getAuthorization(ctx), dataList[position].b_id)
-                postLikeResponse.enqueue(object: Callback<PostLikeResponse> {
-                    override fun onFailure(call: Call<PostLikeResponse>?, t: Throwable?) {
-                        Log.e("Like Fail", t.toString())
+            val token = SharedPreferencesController.getAuthorization(ctx)
+
+            val postLikeResponse = networkService.postLikeResponse("application/json", token, dataList[position].b_id)
+            postLikeResponse.enqueue(object: Callback<PostLikeResponse> {
+                override fun onFailure(call: Call<PostLikeResponse>?, t: Throwable?) {
+                    Log.e("<게시판-좋아요/취소> 통신 Fail: ", t.toString())
+                }
+
+                override fun onResponse(call: Call<PostLikeResponse>?, response: Response<PostLikeResponse>) {
+                    if (response.isSuccessful) {
+                        ctx.toast(response.body()!!.message)
+                    } else {
+                        Log.e("<게시판-좋아요/취소> 응답 Fail: ", response.code().toString())
+                        Log.e("<게시판-좋아요/취소> 응답 Fail: ", response.errorBody().toString())
                     }
+                }
 
-                    override fun onResponse(call: Call<PostLikeResponse>?, response: Response<PostLikeResponse>) {
-                        if (response.isSuccessful) {
-                            ctx.toast("좋아요 취소")
-                            ctx.toast(response.body()!!.message)
-                        }
+            })
+        }
+
+        holder.btnDelete.setOnClickListener {
+            val token = SharedPreferencesController.getAuthorization(ctx)
+
+            val deleteBulletinResponse = networkService.deleteBulletinResponse("application/json", token, dataList[position].b_id)
+            deleteBulletinResponse.enqueue(object: Callback<DeleteBulletinResponse> {
+                override fun onFailure(call: Call<DeleteBulletinResponse>?, t: Throwable?) {
+                    Log.e("<게시판-게시글 삭제> 통신 Fail", t.toString())
+                }
+
+                override fun onResponse(call: Call<DeleteBulletinResponse>?, response: Response<DeleteBulletinResponse>) {
+                    if (response.isSuccessful) {
+                        ctx.toast(response.body()!!.message)
+                    } else {
+                        Log.e("<게시판-게시글 삭제> 응답 Fail: ", response.code().toString())
+                        Log.e("<게시판-게시글 삭제> 응답 Fail: ", response.errorBody().toString())
                     }
+                }
 
-                })
-            } else {
-                val postLikeResponse = networkService.postLikeResponse("application/json", SharedPreferencesController.getAuthorization(ctx), dataList[position].b_id)
-                postLikeResponse.enqueue(object: Callback<PostLikeResponse> {
-                    override fun onFailure(call: Call<PostLikeResponse>?, t: Throwable?) {
-                        Log.e("Like Fail", t.toString())
-                    }
-
-                    override fun onResponse(call: Call<PostLikeResponse>?, response: Response<PostLikeResponse>) {
-                        if (response.isSuccessful) {
-                            ctx.toast("좋아요 성공")
-                            ctx.toast(response.body()!!.message)
-                        } else {
-                            Log.e("Like 실패: ", response.code().toString())
-                            Log.e("Like 실패: ", response.errorBody().toString())
-                        }
-                    }
-
-                })
-            }
-
-
-
-            ctx.toast("b_id="+dataList[position].b_id)
-
-            //
-
-
-
+            })
         }
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.tv_rv_item_board_title) as TextView
-        val like_cnt: TextView = itemView.findViewById(R.id.tv_rv_item_board_like_cnt) as TextView
+        var like_cnt: TextView = itemView.findViewById(R.id.tv_rv_item_board_like_cnt) as TextView
         val date: TextView = itemView.findViewById(R.id.tv_rv_item_board_date) as TextView
         val image: ImageView = itemView.findViewById(R.id.iv_rv_item_board_image) as ImageView
-
         val like: TextView = itemView.findViewById(R.id.tv_rv_item_board_like) as TextView
+
+        val btnDelete: Button = itemView.findViewById(R.id.btn_delete_board) as Button
     }
 }

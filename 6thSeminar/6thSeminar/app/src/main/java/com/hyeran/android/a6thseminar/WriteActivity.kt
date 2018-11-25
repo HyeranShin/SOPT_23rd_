@@ -95,13 +95,16 @@ class WriteActivity : AppCompatActivity() {
 
             postWriteBoardResponse.enqueue(object : Callback<PostWriteBoardResponse> {
                 override fun onFailure(call: Call<PostWriteBoardResponse>, t: Throwable) {
-                    Log.e("Write fail", t.toString())
+                    Log.e("<게시판-게시글 작성> 통신 fail", t.toString())
                 }
 
                 override fun onResponse(call: Call<PostWriteBoardResponse>, response: Response<PostWriteBoardResponse>) {
                     if (response.isSuccessful) {
                         toast(response.body()!!.message)
                         finish()
+                    } else {
+                        Log.e("<게시판-게시글 작성> 응답 Fail: ", response.code().toString())
+                        Log.e("<게시판-게시글 작성> 응답 Fail: ", response.errorBody().toString())
                     }
                 }
             })

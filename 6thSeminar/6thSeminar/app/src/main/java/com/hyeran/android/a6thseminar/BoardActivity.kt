@@ -2,6 +2,7 @@ package com.hyeran.android.a6thseminar
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -9,10 +10,12 @@ import android.util.Log
 import com.hyeran.android.a6thseminar.R
 import com.hyeran.android.a6thseminar.adapter.BoardRecyclerViewAdapter
 import com.hyeran.android.a6thseminar.data.BoardData
+import com.hyeran.android.a6thseminar.db.SharedPreferencesController
 import com.hyeran.android.a6thseminar.get.GetBoardListResponse
 import com.hyeran.android.a6thseminar.network.ApplicationController
 import com.hyeran.android.a6thseminar.network.NetworkService
 import kotlinx.android.synthetic.main.activity_board.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import retrofit2.Call
 import retrofit2.Callback

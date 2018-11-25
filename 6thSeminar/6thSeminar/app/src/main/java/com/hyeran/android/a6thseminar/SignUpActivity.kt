@@ -66,17 +66,19 @@ class SignUpActivity : AppCompatActivity() {
         // object: -> 인수로 함수가 들어갈 때 사용 뒤에 응답으로 받을 data class
         postSignUpResponse.enqueue(object: Callback<PostSignUpResponse>{
             override fun onFailure(call: Call<PostSignUpResponse>?, t: Throwable?) {
-                Log.e("Sign Up Fail", t.toString())   // fail 이유 Log 찍기
+                Log.e("<회원-회원 가입> 통신 Fail", t.toString())   // fail 이유 Log 찍기
             }
             // 통신 성공 시 수행되는 메소드
             // response로 응답 메세지 받음
             override fun onResponse(call: Call<PostSignUpResponse>?, response: Response<PostSignUpResponse>) {
                 if (response.isSuccessful) {
-                    var message: String = response.body()!!.message
-                    toast(message)
+                    toast(response.body()!!.message)
                     finish()
                     // 서버 통신 후 성공했다면, 이 onResponse 메소드 블락 안에서 데이터를 꺼내오고,
                     // View에 뿌려지는 작업을 넣는다.
+                } else {
+                    Log.e("<회원-회원 가입> 응답 Fail: ", response.code().toString())
+                    Log.e("<회원-회원 가입> 응답 Fail: ", response.errorBody().toString())
                 }
             }
         })
