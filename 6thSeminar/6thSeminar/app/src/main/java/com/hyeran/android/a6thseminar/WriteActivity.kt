@@ -64,17 +64,17 @@ class WriteActivity : AppCompatActivity() {
         if (requestCode == REQUEST_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) { // 이 두 부분은 형식적
                 data?.let {
-                    var seletedPictureUri = it.data
+                    var selectedPictureUri = it.data
                     val options = BitmapFactory.Options()
-                    val inputStream: InputStream = contentResolver.openInputStream(seletedPictureUri)
+                    val inputStream: InputStream = contentResolver.openInputStream(selectedPictureUri)
                     val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
                     val byteArrayOutputStream = ByteArrayOutputStream()
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
                     val photoBody = RequestBody.create(MediaType.parse("image/jpg"), byteArrayOutputStream.toByteArray())
                     //첫번째 매개변수 String을 꼭! 꼭! 서버 API에 명시된 이름으로 넣어주세요!!!
-                    mImage = MultipartBody.Part.createFormData("photo", File(seletedPictureUri.toString()).name, photoBody)
+                    mImage = MultipartBody.Part.createFormData("photo", File(selectedPictureUri.toString()).name, photoBody)
                     //Glide을 사진 URI를 ImageView에 넣은 방식. 외부 URI가 아니라 굳이 Glide을 안써도 되지만 ㅎㅎ!
-                    Glide.with(this@WriteActivity).load(seletedPictureUri).thumbnail(0.1f).into(iv_write_act_choice_image)
+                    Glide.with(this@WriteActivity).load(selectedPictureUri).thumbnail(0.1f).into(iv_write_act_choice_image)
                 }
             }
         }

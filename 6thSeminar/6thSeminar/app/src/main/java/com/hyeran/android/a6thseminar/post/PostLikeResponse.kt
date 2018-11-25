@@ -1,9 +1,12 @@
-package com.hyeran.android.a6thseminar.data
+package com.hyeran.android.a6thseminar.post
 
-// JSON에서 "[]"는 Array라고 생각
+data class PostLikeResponse (
+        val status: Int,
+        val message: String,
+        val data: LikeData?
+)
 
-// Board(게시물) item에 들어갈 데이터들
-class BoardData (
+data class LikeData (
         val b_id: Int,
         val b_title: String,
         val b_contents: String,

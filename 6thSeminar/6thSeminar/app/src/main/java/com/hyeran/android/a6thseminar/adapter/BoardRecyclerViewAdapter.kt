@@ -1,7 +1,9 @@
 package com.hyeran.android.a6thseminar.adapter
 
 import android.content.Context
+import android.nfc.Tag
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hyeran.android.a6thseminar.R
 import com.hyeran.android.a6thseminar.data.BoardData
+import com.hyeran.android.a6thseminar.db.SharedPreferencesController
+import com.hyeran.android.a6thseminar.network.ApplicationController
+import com.hyeran.android.a6thseminar.network.NetworkService
+import com.hyeran.android.a6thseminar.post.PostLikeResponse
+import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /*
 기본적인 Glide 사용법
@@ -20,6 +30,10 @@ Glide.with(context or activity)
  */
 
 class BoardRecyclerViewAdapter(val ctx: Context, val dataList: ArrayList<BoardData>) : RecyclerView.Adapter<BoardRecyclerViewAdapter.Holder>() {
+    val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(ctx).inflate(R.layout.rv_item_board, parent, false)
         return Holder(view)
@@ -42,6 +56,51 @@ class BoardRecyclerViewAdapter(val ctx: Context, val dataList: ArrayList<BoardDa
                 .thumbnail(0.5f)
                 .into(holder.image)
 
+        holder.like.setOnClickListener {
+            if (dataList[position].like) {
+                val postLikeResponse = networkService.postLikeResponse("application/json", SharedPreferencesController.getAuthorization(ctx), dataList[position].b_id)
+                postLikeResponse.enqueue(object: Callback<PostLikeResponse> {
+                    override fun onFailure(call: Call<PostLikeResponse>?, t: Throwable?) {
+                        Log.e("Like Fail", t.toString())
+                    }
+
+                    override fun onResponse(call: Call<PostLikeResponse>?, response: Response<PostLikeResponse>) {
+                        if (response.isSuccessful) {
+                            ctx.toast("좋아요 취소")
+                            ctx.toast(response.body()!!.message)
+                        }
+                    }
+
+                })
+            } else {
+                val postLikeResponse = networkService.postLikeResponse("application/json", SharedPreferencesController.getAuthorization(ctx), dataList[position].b_id)
+                postLikeResponse.enqueue(object: Callback<PostLikeResponse> {
+                    override fun onFailure(call: Call<PostLikeResponse>?, t: Throwable?) {
+                        Log.e("Like Fail", t.toString())
+                    }
+
+                    override fun onResponse(call: Call<PostLikeResponse>?, response: Response<PostLikeResponse>) {
+                        if (response.isSuccessful) {
+                            ctx.toast("좋아요 성공")
+                            ctx.toast(response.body()!!.message)
+                        } else {
+                            Log.e("Like 실패: ", response.code().toString())
+                            Log.e("Like 실패: ", response.errorBody().toString())
+                        }
+                    }
+
+                })
+            }
+
+
+
+            ctx.toast("b_id="+dataList[position].b_id)
+
+            //
+
+
+
+        }
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -49,5 +108,7 @@ class BoardRecyclerViewAdapter(val ctx: Context, val dataList: ArrayList<BoardDa
         val like_cnt: TextView = itemView.findViewById(R.id.tv_rv_item_board_like_cnt) as TextView
         val date: TextView = itemView.findViewById(R.id.tv_rv_item_board_date) as TextView
         val image: ImageView = itemView.findViewById(R.id.iv_rv_item_board_image) as ImageView
+
+        val like: TextView = itemView.findViewById(R.id.tv_rv_item_board_like) as TextView
     }
 }

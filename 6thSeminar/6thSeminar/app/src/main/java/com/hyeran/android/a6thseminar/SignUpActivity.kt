@@ -44,7 +44,7 @@ class SignUpActivity : AppCompatActivity() {
         // 앱잼에서는 text 값이 비어있는지 체크하는 코드 필요!
         val input_name: String = et_sign_up_act_name.text.toString()
         val input_pw: String = et_sign_up_act_pw.text.toString()
-        val input_email: String = et_main_act_email.text.toString()
+        val input_email: String = et_sign_up_act_email.text.toString()
         val input_part: String = et_sign_up_act_part.text.toString()
 
         // Json 형식의 객체 만들기
