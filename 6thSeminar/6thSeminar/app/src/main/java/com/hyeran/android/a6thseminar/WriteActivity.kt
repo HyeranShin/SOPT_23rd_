@@ -103,8 +103,8 @@ class WriteActivity : AppCompatActivity() {
                         toast(response.body()!!.message)
                         finish()
                     } else {
-                        Log.e("<게시판-게시글 작성> 응답 Fail: ", response.code().toString())
-                        Log.e("<게시판-게시글 작성> 응답 Fail: ", response.errorBody().toString())
+                        Log.e("<게시판-게시글 작성> 응답 fail: ", response.code().toString())
+                        Log.e("<게시판-게시글 작성> 응답 fail: ", response.errorBody().toString())
                     }
                 }
             })

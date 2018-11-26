@@ -9,8 +9,8 @@ class BoardData (
         val b_contents: String,
         val b_date: String,
         val u_id: Int,
-        val b_like: Int,
+        var b_like: Int,
         val b_photo: String,
         val auth: Boolean,
-        var like: Boolean
+        val like: Boolean
 )

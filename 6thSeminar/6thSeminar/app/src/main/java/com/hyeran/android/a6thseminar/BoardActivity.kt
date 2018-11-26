@@ -11,12 +11,15 @@ import com.hyeran.android.a6thseminar.R
 import com.hyeran.android.a6thseminar.adapter.BoardRecyclerViewAdapter
 import com.hyeran.android.a6thseminar.data.BoardData
 import com.hyeran.android.a6thseminar.db.SharedPreferencesController
+import com.hyeran.android.a6thseminar.delete.DeleteDismemberResponse
 import com.hyeran.android.a6thseminar.get.GetBoardListResponse
+import com.hyeran.android.a6thseminar.get.GetCheckMemberInfoResponse
 import com.hyeran.android.a6thseminar.network.ApplicationController
 import com.hyeran.android.a6thseminar.network.NetworkService
 import kotlinx.android.synthetic.main.activity_board.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,16 +53,20 @@ class BoardActivity : AppCompatActivity() {
         val getBoardListResponse = networkService.getBoardListResponse("application/json", 0, 30)
         getBoardListResponse.enqueue(object : Callback<GetBoardListResponse> {
             override fun onFailure(call: Call<GetBoardListResponse>, t: Throwable) {
-                Log.e("Board fail", t.toString())
+                Log.e("<게시판-모든 게시글 조회> fail", t.toString())
             }
             override fun onResponse(call: Call<GetBoardListResponse>, response: Response<GetBoardListResponse>) {
                 if (response.isSuccessful){
+                    toast(response.body()!!.message)
                     val temp : ArrayList<BoardData> = response.body()!!.data
                     if (temp.size > 0){
                         val position = boardRecyclerViewAdapter.itemCount
                         boardRecyclerViewAdapter.dataList.addAll(temp)
                         boardRecyclerViewAdapter.notifyItemInserted(position)
                     }
+                } else {
+                    Log.e("<게시판-모든 게시글 조회> 응답 fail: ", response.code().toString())
+                    Log.e("<게시판-모든 게시글 조회> 응답 fail: ", response.errorBody().toString())
                 }
             }
         })
@@ -70,7 +77,51 @@ class BoardActivity : AppCompatActivity() {
             startActivityForResult<WriteActivity>(WRITE_ACTIVITY_REQUEST_CODE)
             // 새로운 액티비티를 띄운 다음에 꺼지고 이 응답에 대한 처리 -> onActivityResult (갱신을 위한 재통신)
         }
+        btn_dismember.setOnClickListener {
+//            deleteDismemberResponse()
+            SharedPreferencesController.clearSPC(this@BoardActivity)
+//            startActivity<MainActivity>()
+        }
     }
+
+//    private fun deleteDismemberResponse() {
+//        checkMemberInfoResponse()
+//        val token = SharedPreferencesController.getAuthorization(this)
+//        val deleteDismemberResponse = networkService.deleteDismemberResponse("application/json", token, 1)
+//        deleteDismemberResponse.enqueue(object : Callback<DeleteDismemberResponse> {
+//            override fun onFailure(call: Call<DeleteDismemberResponse>?, t: Throwable?) {
+//                Log.e("<회원-회원 탈퇴> fail", t.toString())
+//            }
+//
+//            override fun onResponse(call: Call<DeleteDismemberResponse>?, response: Response<DeleteDismemberResponse>) {
+//                if (response.isSuccessful){
+//                    toast(response.body()!!.message)
+//                } else {
+//                    Log.e("<회원-회원 탈퇴> 응답 fail: ", response.code().toString())
+//                    Log.e("<회원-회원 탈퇴> 응답 fail: ", response.errorBody().toString())
+//                }
+//            }
+//        })
+//    }
+//
+//    private fun checkMemberInfoResponse() {
+//        val token = SharedPreferencesController.getAuthorization(this)
+//        val getCheckMemberInfoResponse = networkService.getCheckMemberInfoResponse()
+//        getCheckMemberInfoResponse.enqueue(object : Callback<GetCheckMemberInfoResponse> {
+//            override fun onFailure(call: Call<GetCheckMemberInfoResponse>?, t: Throwable?) {
+//                Log.e("<회원-회원 탈퇴> fail", t.toString())
+//            }
+//
+//            override fun onResponse(call: Call<GetCheckMemberInfoResponse>?, response: Response<GetCheckMemberInfoResponse>) {
+//                if (response.isSuccessful){
+//                    toast(response.body()!!.message)
+//                } else {
+//                    Log.e("<회원-회원 탈퇴> 응답 fail: ", response.code().toString())
+//                    Log.e("<회원-회원 탈퇴> 응답 fail: ", response.errorBody().toString())
+//                }
+//            }
+//        })
+//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

@@ -1,6 +1,7 @@
 package com.hyeran.android.a6thseminar.adapter
 
 import android.content.Context
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.hyeran.android.a6thseminar.BoardActivity
+import com.hyeran.android.a6thseminar.DetailActivity
 import com.hyeran.android.a6thseminar.R
 import com.hyeran.android.a6thseminar.data.BoardData
 import com.hyeran.android.a6thseminar.db.SharedPreferencesController
@@ -18,6 +21,7 @@ import com.hyeran.android.a6thseminar.delete.DeleteBoardResponse
 import com.hyeran.android.a6thseminar.network.ApplicationController
 import com.hyeran.android.a6thseminar.network.NetworkService
 import com.hyeran.android.a6thseminar.post.PostLikeResponse
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,13 +34,16 @@ Glide.with(context or activity)
         .into(띄워질 ImageView Id)
  */
 
-class BoardRecyclerViewAdapter(val ctx: Context, val dataList: ArrayList<BoardData>) : RecyclerView.Adapter<BoardRecyclerViewAdapter.Holder>() {
+class BoardRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<BoardData>) : RecyclerView.Adapter<BoardRecyclerViewAdapter.Holder>() {
     val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
     }
 
+    lateinit var view: View
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.rv_item_board, parent, false)
+        view = LayoutInflater.from(ctx).inflate(R.layout.rv_item_board, parent, false)
+
         return Holder(view)
     }
 
@@ -63,40 +70,23 @@ class BoardRecyclerViewAdapter(val ctx: Context, val dataList: ArrayList<BoardDa
             val postLikeResponse = networkService.postLikeResponse("application/json", token, dataList[position].b_id)
             postLikeResponse.enqueue(object: Callback<PostLikeResponse> {
                 override fun onFailure(call: Call<PostLikeResponse>?, t: Throwable?) {
-                    Log.e("<게시판-좋아요/취소> 통신 Fail: ", t.toString())
+                    Log.e("<게시판-좋아요/취소> 통신 fail: ", t.toString())
                 }
 
                 override fun onResponse(call: Call<PostLikeResponse>?, response: Response<PostLikeResponse>) {
                     if (response.isSuccessful) {
                         ctx.toast(response.body()!!.message)
                     } else {
-                        Log.e("<게시판-좋아요/취소> 응답 Fail: ", response.code().toString())
-                        Log.e("<게시판-좋아요/취소> 응답 Fail: ", response.errorBody().toString())
+                        Log.e("<게시판-좋아요/취소> 응답 fail: ", response.code().toString())
+                        Log.e("<게시판-좋아요/취소> 응답 fail: ", response.errorBody().toString())
                     }
                 }
 
             })
         }
 
-        holder.btnDelete.setOnClickListener {
-            val token = SharedPreferencesController.getAuthorization(ctx)
-
-            val deleteBulletinResponse = networkService.deleteBoardResponse("application/json", token, dataList[position].b_id)
-            deleteBulletinResponse.enqueue(object: Callback<DeleteBoardResponse> {
-                override fun onFailure(call: Call<DeleteBoardResponse>?, t: Throwable?) {
-                    Log.e("<게시판-게시글 삭제> 통신 Fail", t.toString())
-                }
-
-                override fun onResponse(call: Call<DeleteBoardResponse>?, response: Response<DeleteBoardResponse>) {
-                    if (response.isSuccessful) {
-                        ctx.toast(response.body()!!.message)
-                    } else {
-                        Log.e("<게시판-게시글 삭제> 응답 Fail: ", response.code().toString())
-                        Log.e("<게시판-게시글 삭제> 응답 Fail: ", response.errorBody().toString())
-                    }
-                }
-
-            })
+        view.setOnClickListener {
+            ctx.startActivity<DetailActivity>("contentIdx" to dataList[position].b_id)
         }
     }
 
@@ -106,7 +96,5 @@ class BoardRecyclerViewAdapter(val ctx: Context, val dataList: ArrayList<BoardDa
         val date: TextView = itemView.findViewById(R.id.tv_rv_item_board_date) as TextView
         val image: ImageView = itemView.findViewById(R.id.iv_rv_item_board_image) as ImageView
         val like: TextView = itemView.findViewById(R.id.tv_rv_item_board_like) as TextView
-
-        val btnDelete: Button = itemView.findViewById(R.id.btn_delete_board) as Button
     }
 }

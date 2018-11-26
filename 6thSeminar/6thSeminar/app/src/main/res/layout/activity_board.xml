@@ -5,13 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/linear_board"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:elevation="8dp">
+        <TextView
+            android:id="@+id/btn_modify_member_info"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="?android:selectableItemBackground"
+            android:text="회원 정보 수정" />
+        <TextView
+            android:id="@+id/btn_dismember"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="?android:selectableItemBackground"
+            android:text="회원 탈퇴" />
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_board_act_board_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/linear_board"
+        android:layout_above="@id/relative_board">
 
     </android.support.v7.widget.RecyclerView>
     <RelativeLayout
+        android:id="@+id/relative_board"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"

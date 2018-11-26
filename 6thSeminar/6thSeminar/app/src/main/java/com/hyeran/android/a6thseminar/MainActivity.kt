@@ -72,8 +72,8 @@ class MainActivity : AppCompatActivity() {
                         toast(SharedPreferencesController.getAuthorization(this@MainActivity))
                         startActivity<BoardActivity>()
                     } else {
-                        Log.e("<로그인> 응답 Fail: ", response.code().toString())
-                        Log.e("<로그인> 응답 Fail: ", response.errorBody().toString())
+                        Log.e("<로그인> 응답 fail: ", response.code().toString())
+                        Log.e("<로그인> 응답 fail: ", response.errorBody().toString())
                     }
                 }
             })
