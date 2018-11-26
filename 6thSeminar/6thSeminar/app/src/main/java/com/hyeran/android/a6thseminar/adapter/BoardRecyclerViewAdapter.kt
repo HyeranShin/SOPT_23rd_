@@ -1,7 +1,6 @@
 package com.hyeran.android.a6thseminar.adapter
 
 import android.content.Context
-import android.nfc.Tag
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,11 +11,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.hyeran.android.a6thseminar.BoardActivity
 import com.hyeran.android.a6thseminar.R
 import com.hyeran.android.a6thseminar.data.BoardData
 import com.hyeran.android.a6thseminar.db.SharedPreferencesController
-import com.hyeran.android.a6thseminar.delete.DeleteBulletinResponse
+import com.hyeran.android.a6thseminar.delete.DeleteBoardResponse
 import com.hyeran.android.a6thseminar.network.ApplicationController
 import com.hyeran.android.a6thseminar.network.NetworkService
 import com.hyeran.android.a6thseminar.post.PostLikeResponse
@@ -83,13 +81,13 @@ class BoardRecyclerViewAdapter(val ctx: Context, val dataList: ArrayList<BoardDa
         holder.btnDelete.setOnClickListener {
             val token = SharedPreferencesController.getAuthorization(ctx)
 
-            val deleteBulletinResponse = networkService.deleteBulletinResponse("application/json", token, dataList[position].b_id)
-            deleteBulletinResponse.enqueue(object: Callback<DeleteBulletinResponse> {
-                override fun onFailure(call: Call<DeleteBulletinResponse>?, t: Throwable?) {
+            val deleteBulletinResponse = networkService.deleteBoardResponse("application/json", token, dataList[position].b_id)
+            deleteBulletinResponse.enqueue(object: Callback<DeleteBoardResponse> {
+                override fun onFailure(call: Call<DeleteBoardResponse>?, t: Throwable?) {
                     Log.e("<게시판-게시글 삭제> 통신 Fail", t.toString())
                 }
 
-                override fun onResponse(call: Call<DeleteBulletinResponse>?, response: Response<DeleteBulletinResponse>) {
+                override fun onResponse(call: Call<DeleteBoardResponse>?, response: Response<DeleteBoardResponse>) {
                     if (response.isSuccessful) {
                         ctx.toast(response.body()!!.message)
                     } else {

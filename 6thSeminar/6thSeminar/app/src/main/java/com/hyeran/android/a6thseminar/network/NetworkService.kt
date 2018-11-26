@@ -1,9 +1,14 @@
 package com.hyeran.android.a6thseminar.network
 
 import com.google.gson.JsonObject
-import com.hyeran.android.a6thseminar.delete.DeleteBulletinResponse
+import com.hyeran.android.a6thseminar.delete.DeleteBoardResponse
+import com.hyeran.android.a6thseminar.delete.DeleteDismemberResponse
+import com.hyeran.android.a6thseminar.get.GetBoardDetailResponse
 import com.hyeran.android.a6thseminar.get.GetBoardListResponse
+import com.hyeran.android.a6thseminar.get.GetCheckMemberInfoResponse
 import com.hyeran.android.a6thseminar.post.*
+import com.hyeran.android.a6thseminar.put.PutModifyBoardResponse
+import com.hyeran.android.a6thseminar.put.PutModifyMemeberInfoResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -22,7 +27,12 @@ interface NetworkService {
 
     //**************************회원**************************
     // 회원 조회
-
+    @GET("/users/{userIdx}")
+    fun getCheckMemberInfoResponse(
+            @Header("Content-Type") content_type: String,
+            @Header("Authorization") token: String,
+            @Path("userIdx") userIdx: Int
+    ) : Call<GetCheckMemberInfoResponse>
 
     // 회원 가입
     @POST("/users")  // @메소드타입("경로")
@@ -35,8 +45,24 @@ interface NetworkService {
     ) : Call<PostSignUpResponse>
 
     // 회원 정보 수정
+    @Multipart
+    @PUT("/users/{userIdx}")
+    fun putModifyMemberInfoResponse(
+            @Header("Authorization") token: String,
+            @Path("userIdx") userIdx: Int,
+            @Part("name") name: String?,
+            @Part("part") part: String?,
+            @Part("email") email: String?,
+            @Part profile: MultipartBody.Part?
+    ) : Call<PutModifyMemeberInfoResponse>
 
     // 회원 탈퇴
+    @DELETE("/users/{userIdx}")
+    fun deleteDismemberResponse(
+            @Header("Content-Type") content_type: String,
+            @Header("Authorization") token: String,
+            @Path("userIdx") userIdx: Int
+    ) : Call<DeleteDismemberResponse>
 
     //**************************게시판**************************
     // 모든 게시글 조회
@@ -47,7 +73,13 @@ interface NetworkService {
             @Query("limit") limit: Int
     ) : Call<GetBoardListResponse>
 
-    // 게시글 상세 조회
+    // 게시글 상세
+    @GET("/contents/{contentIdx}")
+    fun getBoardDetailResponse(
+            @Header("Content-Type") content_type: String,
+            @Header("Authorization") token: String?,
+            @Path("contentIdx") contentIdx: Int
+    ) : Call<GetBoardDetailResponse>
 
     // 게시글 작성
     @Multipart  // 파라미터 형식
@@ -68,14 +100,23 @@ interface NetworkService {
     ) : Call<PostLikeResponse>
 
     // 게시글 수정
+    @Multipart
+    @PUT("/contents/{contentIdx}")
+    fun putModifyBoardResponse(
+            @Header("Authorization") token: String,
+            @Path("contentIdx") contentIdx: Int,
+            @Part("title") title: RequestBody,  // @Part에 String 타입을 넣을 땐 RequestBody에 담기
+            @Part("contents") contents: RequestBody,
+            @Part photo: MultipartBody.Part?
+    ) : Call<PutModifyBoardResponse>
 
     // 게시글 삭제
     @DELETE("/contents/{contentIdx}")
-    fun deleteBulletinResponse(
+    fun deleteBoardResponse(
             @Header("Content-Type") content_type: String,
             @Header("Authorization") token: String,
             @Path("contentIdx") contentIdx: Int
-    ) : Call<DeleteBulletinResponse>
+    ) : Call<DeleteBoardResponse>
 
     //**************************댓글**************************
     // 댓글 조회

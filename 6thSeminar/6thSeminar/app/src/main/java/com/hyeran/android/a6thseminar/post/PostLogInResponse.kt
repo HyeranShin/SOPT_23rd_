@@ -4,9 +4,9 @@ package com.hyeran.android.a6thseminar.post
 data class PostLogInResponse (
         val status: Int,
         val message: String,
-        val data: LoginData
+        val data: LogInData
 )
 
-data class LoginData (
+data class LogInData (
         val token: String
 )

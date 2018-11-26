@@ -1,12 +1,12 @@
 package com.hyeran.android.a6thseminar.put
 
-data class PutModifyUserInfoResponse (
+data class PutModifyMemeberInfoResponse (
         val status: String,
         val message: String,
-        val data: ModifyUserInfoData?
+        val data: ModifyMemeberInfoData?
 )
 
-data class ModifyUserInfoData (
+data class ModifyMemeberInfoData (
         val u_id: Int,
         val u_name: String,
         val u_part: String,
