@@ -23,7 +23,8 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".BoardActivity" />
         <activity android:name=".WriteActivity" />
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".BoardDetailActivity" />
+        <activity android:name=".BoardModifyActivity"></activity>
     </application>
 
 </manifest>

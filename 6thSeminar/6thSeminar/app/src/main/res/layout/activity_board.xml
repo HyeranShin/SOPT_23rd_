@@ -11,7 +11,7 @@
         android:layout_height="48dp"
         android:orientation="horizontal"
         android:background="#FFFFFF"
-        android:elevation="8dp">
+        android:elevation="1dp">
         <TextView
             android:id="@+id/btn_modify_member_info"
             android:layout_width="0dp"

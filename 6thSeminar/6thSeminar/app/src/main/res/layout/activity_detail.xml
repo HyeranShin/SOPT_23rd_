@@ -5,20 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DetailActivity">
+    tools:context=".BoardDetailActivity"
+    android:padding="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_title_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="제목"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"/>
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_like"
+            android:layout_toLeftOf="@id/tv_like_cnt_detail"/>
+        <TextView
+            android:id="@+id/tv_like_cnt_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="15sp"
+            android:text="10"/>
+
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_title_detail"
+        android:id="@+id/tv_date_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="제목"
-        android:textSize="20sp"
-        android:layout_gravity="center_horizontal"/>
+        android:textSize="15sp"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="right"
+        android:text="내용"/>
 
     <TextView
         android:id="@+id/tv_content_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginTop="16dp"
         android:text="내용"/>
 
     <ImageView

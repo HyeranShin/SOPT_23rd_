@@ -1,23 +1,19 @@
 package com.hyeran.android.a6thseminar.adapter
 
 import android.content.Context
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.hyeran.android.a6thseminar.BoardActivity
-import com.hyeran.android.a6thseminar.DetailActivity
+import com.hyeran.android.a6thseminar.BoardDetailActivity
 import com.hyeran.android.a6thseminar.R
 import com.hyeran.android.a6thseminar.data.BoardData
 import com.hyeran.android.a6thseminar.db.SharedPreferencesController
-import com.hyeran.android.a6thseminar.delete.DeleteBoardResponse
 import com.hyeran.android.a6thseminar.network.ApplicationController
 import com.hyeran.android.a6thseminar.network.NetworkService
 import com.hyeran.android.a6thseminar.post.PostLikeResponse
@@ -86,7 +82,7 @@ class BoardRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<BoardDa
         }
 
         view.setOnClickListener {
-            ctx.startActivity<DetailActivity>("contentIdx" to dataList[position].b_id)
+            ctx.startActivity<BoardDetailActivity>("contentIdx" to dataList[position].b_id)
         }
     }
 
